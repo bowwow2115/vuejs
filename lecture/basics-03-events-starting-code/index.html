@@ -25,10 +25,10 @@
       <!-- v속성값 함수쓸 때 '$event' 사용  -->
       <input
         type="text"
-        v-on:input="setName($event, 'Park')"
-        v-on:keyup.enter="confirmInput"
+        v-model="name"
       />
-      <p>Your Name: {{confirmedName}}</p>
+      <button v-on:click="resetInput">Reset Input</button>
+      <p>Your Name: {{name}}</p>
       <form v-on:submit.prevent="submitForm">
         <input type="text" />
         <button>Sing Up</button>
