@@ -14,9 +14,35 @@ const app = Vue.createApp({
       // this.message = this.currentUserInput;
     },
   },
+  beforeCreate() {
+    console.log("beforeCreate()");
+  },
+  created() {
+    console.log("created()");
+  },
+  beforeMount() {
+    console.log("mounted()");
+  },
+  mounted() {
+    console.log("beforeUpdate");
+  },
+  beforeUpdate() {
+    console.log("beforeUpdate()");
+  },
+  updated() {
+    console.log("updated()");
+  },
+  beforeUnmount() {
+    console.log("beforeUnmount()");
+  },
+  unmounted() {
+    console.log("unmount");
+  },
 });
 
 app.mount("#app");
+
+setTimeout(() => app.unmount(), 3000);
 
 const data = {
   message: "Hello!",
