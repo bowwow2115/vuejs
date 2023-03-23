@@ -4,14 +4,14 @@
     <new-friend @add-contact="addContact"></new-friend>
   <ul>
     <friend-contact 
-    v-for="friend in friends"
-    :key="friend.id"
-    :id="friend.id"
-    :name="friend.name" 
-    :phone-number="friend.phone" 
-    :email-address="friend.email"
-    :is-favorite="friend.isFavorite"
-    @toggle-favorite="toggleFavorite()"
+      v-for="friend in friends"
+      :key="friend.id"
+      :id="friend.id"
+      :name="friend.name" 
+      :phone-number="friend.phone" 
+      :email-address="friend.email"
+      :is-favorite="friend.isFavorite"
+      @toggle-favorite="toggleFavorite"
     ></friend-contact>
   </ul>
 </section>
@@ -44,9 +44,20 @@ export default {
   methods: {
     toggleFavorite(friendId) {
       const identifiedFriend = this.friends.find(
-        (friend) => friend.id === friendId);
-      console.log(identifiedFriend);
-      // identifiedFriend.isFavorite = !identifiedFriend.isFavorite;
+        (friend) => friend.id === friendId
+        );
+        identifiedFriend.isFavorite = !identifiedFriend.isFavorite;
+    },
+    addContact(name, phone, email) {
+      console.log('addContact');
+      const NewFriendContact = {
+        id: new Date().toISOString(),
+        name: name,
+        phone: phone,
+        email: email,
+        isFavorite: false
+      };
+      this.friends.push(NewFriendContact);
     },
   }
 }

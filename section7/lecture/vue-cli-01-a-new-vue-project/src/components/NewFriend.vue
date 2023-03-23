@@ -28,13 +28,13 @@ export default {
       enteredEmail: ''
     };
   },
-  method: {
+  methods: {
     submitData() {
       this.$emit(
-        'add=contact',
+        'add-contact',
           this.enteredName,
-          this.enteredEmail, 
-          this.enteredPhone
+          this.enteredPhone,
+          this.enteredEmail 
           );
     },
   }
