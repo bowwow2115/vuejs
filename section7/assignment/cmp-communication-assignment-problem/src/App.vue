@@ -32,8 +32,6 @@ export default {
   },
   methods: {
     addUser(userName, age) {
-
-
       this.users.push(
         {
           username: userName,
