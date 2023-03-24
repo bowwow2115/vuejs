@@ -19,9 +19,7 @@
 </template>
 
 <script>
-import NewFriend from './components/NewFriend.vue'
 export default {
-  components: { NewFriend },
   data() {
     return {
       friends: [

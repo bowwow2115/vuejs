@@ -32,10 +32,26 @@ export default {
       activeTopic: null,
     };
   },
+  provide() {
+    return {
+      topics: this.topics,
+      selectTopic: this.activateTopic
+    };
+  },
   methods: {
     activateTopic(topicId) {
       this.activeTopic = this.topics.find((topic) => topic.id === topicId);
     },
+  },
+  mounted() {
+      setTimeout(() => {
+        this.topics.push({
+          id: 'events',
+          titile: 'Events',
+          description: 'Events are imporatant in Vue',
+          fullText: 'Events allow you to trigger code on demand'
+        })
+      }, 3000);
   },
 };
 </script>
