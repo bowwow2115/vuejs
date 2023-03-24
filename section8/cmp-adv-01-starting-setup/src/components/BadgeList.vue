@@ -12,7 +12,7 @@
 	</section>
 </template>
 
-<style>
+<style scpoed>
 	section h2 {
 		margin: 0.5rem 0;
 		color: #3a3a3a;
