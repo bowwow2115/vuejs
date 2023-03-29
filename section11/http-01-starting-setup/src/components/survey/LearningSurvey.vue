@@ -58,7 +58,6 @@ export default {
       invalidInput: false,
     };
   },
-  emits: ['survey-submit'],
   methods: {
     submitSurvey() {
       if (this.enteredName === '' || !this.chosenRating) {
@@ -67,10 +66,19 @@ export default {
       }
       this.invalidInput = false;
 
-      this.$emit('survey-submit', {
-        userName: this.enteredName,
-        rating: this.chosenRating,
-      });
+      fetch(
+        'https://vue-http-demo-e2c04-default-rtdb.asia-southeast1.firebasedatabase.app/serveys.json',
+        {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            name: this.enteredName,
+            rating: this.chosenRating,
+          }),
+        }
+      );
 
       this.enteredName = '';
       this.chosenRating = null;
