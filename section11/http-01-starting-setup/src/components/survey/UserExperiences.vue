@@ -7,7 +7,9 @@
           >Load Submitted Experiences</base-button
         >
       </div>
-      <ul>
+      <p v-if="isLoading">Loading...</p>
+      <p v-else-if="!isLoading && error !== null">{{ error }}</p>
+      <ul v-else-if="!isLoading && results.length > 0">
         <survey-result
           v-for="result in results"
           :key="result.id"
@@ -15,6 +17,7 @@
           :rating="result.rating"
         ></survey-result>
       </ul>
+      <p v-else-if="!results || results.length === 0">data x</p>
     </base-card>
   </section>
 </template>
@@ -29,10 +32,13 @@ export default {
   data() {
     return {
       results: [],
+      isLoading: false,
+      error: null,
     };
   },
   methods: {
     loadExperience() {
+      this.isLoading = true;
       fetch(
         'https://vue-http-demo-e2c04-default-rtdb.asia-southeast1.firebasedatabase.app/serveys.json'
       )
@@ -42,6 +48,7 @@ export default {
           }
         })
         .then((data) => {
+          this.isLoading = false;
           const results = [];
           for (const id in data) {
             results.push({
@@ -51,8 +58,15 @@ export default {
             });
           }
           this.results = results;
+        })
+        .catch((error) => {
+          this.isLoading = false;
+          this.error = error;
         });
     },
+  },
+  mounted() {
+    this.loadExperience();
   },
 };
 </script>

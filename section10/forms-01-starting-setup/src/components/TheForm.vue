@@ -105,7 +105,7 @@
       <label for="confirm-terms">Agree to terms of use?</label>
     </div>
     <div>
-      <button @click="submitForm">Save Data</button>
+      <button>Save Data</button>
     </div>
   </form>
 </template>
