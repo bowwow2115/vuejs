@@ -16,6 +16,7 @@ const router = createRouter({
     {
       name: 'teams',
       path: '/teams',
+      meta: { needsAuth: true },
       components: { default: TeamsList, footer: TeamsFooter },
       children: [
         {
@@ -26,7 +27,15 @@ const router = createRouter({
         },
       ],
     },
-    { path: '/users', components: { default: UsersList, footer: UsersFooter } },
+    {
+      path: '/users',
+      components: { default: UsersList, footer: UsersFooter },
+      // beforeEnter(to, from, next) {
+      //   console.log('users beforeEnter');
+      //   console.log(to, from);
+      //   console.log(next);
+      // },
+    },
     { path: '/:notFound(.*)', redirect: '/teams' },
   ],
   scrollBehavior(to, from, savedPosition) {
@@ -35,6 +44,20 @@ const router = createRouter({
     }
     return { left: 0, top: 0 };
   },
+});
+
+router.beforeEach((to, from, next) => {
+  console.log(to, from);
+  if (to.meta.needsAuth) {
+    console.log('Nees auth!');
+    next();
+  } else {
+    next();
+  }
+});
+
+router.afterEach(function (to, from) {
+  console.log(to, from);
 });
 
 app.use(router);
