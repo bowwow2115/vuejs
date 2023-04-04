@@ -3,6 +3,10 @@
     <div class="block" :class="{ animate: animatedBlock }"></div>
     <button @click="animateBlock">Animate</button>
   </div>
+  <div class="container">
+    <p v-if="paraIsVisible">visible</p>
+    <button @click="toggleParagraph">Toggle Paragraph</button>
+  </div>
   <base-modal @close="hideDialog" v-if="dialogIsVisible">
     <p>This is a test dialog!</p>
     <button @click="hideDialog">Close it!</button>
@@ -15,11 +19,18 @@
 <script>
 export default {
   data() {
-    return { dialogIsVisible: false, animatedBlock: false };
+    return {
+      dialogIsVisible: false,
+      animatedBlock: false,
+      paraIsVisibe: false,
+    };
   },
   methods: {
     animateBlock() {
       this.animatedBlock = true;
+    },
+    toggleParagraph() {
+      this.paraIsVisibe = !this.paraIsVisibe;
     },
     showDialog() {
       this.dialogIsVisible = true;
