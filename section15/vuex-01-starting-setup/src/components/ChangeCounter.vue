@@ -9,7 +9,7 @@ import { mapActions } from 'vuex';
 
 export default {
   methods: {
-    ...mapActions(['increment', 'incrementWithArg']),
+    ...mapActions('counter', ['increment', 'incrementWithArg']),
     // addOne() {
     // this.$store.commit('increase', { value: 1 });
     // },
