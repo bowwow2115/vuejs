@@ -12,8 +12,8 @@
       >
     </div>
     <div class="actions">
-      <base-button :to="coachContactLink">Contact</base-button>
-      <base-button :to="coachDetailsLink">View Details</base-button>
+      <base-button link :to="coachContactLink">Contact</base-button>
+      <base-button link :to="coachDetailsLink">View Details</base-button>
     </div>
   </li>
 </template>
@@ -26,10 +26,10 @@ export default {
       return this.firstName + ' ' + this.lastName;
     },
     coachContactLink() {
-      return this.$route.path + this.id + '/contact'; // /coaches/c1/contact
+      return this.$route.path + '/' + this.id + '/contact'; // /coaches/c1/contact
     },
     coachDetailsLink() {
-      return this.$route.path + this.id; // /coaches/c1
+      return this.$route.path + '/' + this.id; // /coaches/c1
     },
   },
 };
