@@ -26,10 +26,12 @@
 
 <script>
 import { mapState } from 'vuex';
+import { mapGetters } from 'vuex';
 
 export default {
   computed: {
-    ...mapState(['isLoggedIn', 'login', 'logout', 'cart']),
+    ...mapState(['isLoggedIn', 'login', 'logout']),
+    ...mapGetters(['cart']),
   },
 };
 </script>

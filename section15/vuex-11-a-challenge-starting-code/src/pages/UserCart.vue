@@ -20,7 +20,6 @@
 
 <script>
 import CartItem from '../components/cart/CartItem.vue';
-import { mapState } from 'vuex';
 import { mapGetters } from 'vuex';
 
 export default {
@@ -28,8 +27,7 @@ export default {
     CartItem,
   },
   computed: {
-    ...mapState(['cart']),
-    ...mapGetters(['cartTotal']),
+    ...mapGetters(['cartTotal', 'cart']),
   },
 };
 </script>
