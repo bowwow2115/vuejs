@@ -13,24 +13,33 @@
       </div>
     </div>
     <div class="product__actions">
-      <button @click="addToCart">Add to Cart</button>
+      <button
+        @click="
+          addProductToCart({ id: id, image: image, title: title, price: price })
+        "
+      >
+        Add to Cart
+      </button>
     </div>
   </li>
 </template>
 
 <script>
+import { mapActions } from 'vuex';
+
 export default {
-  inject: ['addProductToCart'],
+  // inject: ['addProductToCart'],
   props: ['id', 'image', 'title', 'price', 'description'],
   methods: {
-    addToCart() {
-      this.addProductToCart({
-        id: this.id,
-        image: this.image,
-        title: this.title,
-        price: this.price,
-      });
-    },
+    // addToCart() {
+    //   this.addProductToCart({
+    //     id: this.id,
+    //     image: this.image,
+    //     title: this.title,
+    //     price: this.price,
+    //   });
+    // },
+    ...mapActions(['addProductToCart']),
   },
 };
 </script>
@@ -38,7 +47,7 @@ export default {
 <style scoped>
 li {
   margin: 1.5rem auto;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.26);
+  box-shadow: 0 2px 8px rgba(57, 57, 57, 0.26);
   padding: 1rem;
 }
 
