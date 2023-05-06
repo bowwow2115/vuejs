@@ -35,10 +35,11 @@ export default {
         this.formIsValid = false;
         return;
       }
+      console.log(this.$route.params.id);
       this.$store.dispatch('requests/contactCoach', {
         email: this.email,
         message: this.message,
-        coachId: this.$forceUpdate.id,
+        coachId: this.$route.id,
       });
       this.$router.replace('/coaches');
     },
