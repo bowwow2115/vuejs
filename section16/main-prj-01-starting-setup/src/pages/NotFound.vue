@@ -1,13 +1,14 @@
 <template>
-  <div></div>
+  <section>
+    <base-card>
+      <h2>Page not Found</h2>
+      <p>This page could not be found</p>
+    </base-card>
+  </section>
 </template>
 
 <script>
-export default {
-
-}
+export default {};
 </script>
 
-<style>
-
-</style>
+<style></style>
