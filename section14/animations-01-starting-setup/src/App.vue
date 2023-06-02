@@ -1,19 +1,9 @@
 <template>
-  <div class="container">
-    <div class="block" :class="{ animate: animatedBlock }"></div>
-    <button @click="animateBlock">Animate</button>
-  </div>
-  <div class="container">
-    <p v-if="paraIsVisible">visible</p>
-    <button @click="toggleParagraph">Toggle Paragraph</button>
-  </div>
-  <base-modal @close="hideDialog" v-if="dialogIsVisible">
-    <p>This is a test dialog!</p>
-    <button @click="hideDialog">Close it!</button>
-  </base-modal>
-  <div class="container">
-    <button @click="showDialog">Show Dialog</button>
-  </div>
+  <router-view v-slot="slotProps">
+    <transition name="route" mode="out-in">
+      <component :is="slotProps.Component"></component>
+    </transition>
+  </router-view>
 </template>
 
 <script>
@@ -22,15 +12,61 @@ export default {
     return {
       dialogIsVisible: false,
       animatedBlock: false,
-      paraIsVisibe: false,
+      paraIsVisible: false,
+      usersAreVisible: false,
+      enterInterval: null,
+      leaveInterval: null,
     };
   },
   methods: {
+    enterCancelled() {
+      clearInterval(this.enterInterval);
+    },
+    leaveCancelled() {
+      clearInterval(this.leaveInterval);
+    },
+    beforeEnter(el) {
+      el.style.opacity = 0;
+    },
+    enter(el, done) {
+      let round = 1;
+      this.enterInterval = setInterval(() => {
+        el.style.opacity = round * 0.1;
+        round++;
+        if (round > 10) {
+          clearInterval(this.enterInterval);
+          done();
+        }
+      }, 200);
+    },
+    afterEnter() {
+      console.log('afterEnter');
+    },
+    beforeLeave(el) {
+      el.style.opacity = 1;
+    },
+    leave(el, done) {
+      let round = 10;
+      this.leaveInterval = setInterval(() => {
+        el.style.opacity = round * 0.1;
+        round--;
+        if (round < 1) {
+          clearInterval(this.leaveInterval);
+          done();
+        }
+      }, 200);
+    },
+    showUsers() {
+      this.usersAreVisible = true;
+    },
+    hideUsers() {
+      this.usersAreVisible = false;
+    },
     animateBlock() {
-      this.animatedBlock = true;
+      this.animatedBlock = !this.animatedBlock;
     },
     toggleParagraph() {
-      this.paraIsVisibe = !this.paraIsVisibe;
+      this.paraIsVisible = !this.paraIsVisible;
     },
     showDialog() {
       this.dialogIsVisible = true;
@@ -89,13 +125,61 @@ button:active {
   animation: slide-fade 0.3s ease-out forwards;
 }
 
+.route-enter-from {
+}
+.route-enter-active {
+  animation: slide-fade 0.4s ease-out;
+}
+.route-enter-to {
+}
+.router-leave-active {
+  animation: slide-fade 0.4s ease-in;
+}
+
+.v-enter-from {
+  /* opacity: 0;
+  translate: translateY(-30px); */
+}
+.v-enter-to {
+  /* opacity: 1;
+  translate: translateY(0px); */
+}
+/* .para-enter-active {
+  animation: slide-fade 0.3s ease-out;
+} */
+.v-leave-from {
+  /* opacity: 1;
+  translate: translateY(0px); */
+}
+
+.v-leave-to {
+  /* opacity: 0;
+  translate: translateY(0px); */
+}
+
+/* .para-leave-active {
+  animation: slide-fade 0.3s ease-in;
+} */
+
+/* .fade-button-enter-from,
+.fade-button-leave-to {
+  opacity: 0;
+}
+.fade-button-enter-active {
+  transition: opacity 0.3s ease-out;
+}
+
+.fade-button-leave-active {
+  transition: opacity 0.3s ease-in;
+}
+
+.fade-button-enter-to,
+.fade-button-leave-from {
+  opacity: 1;
+} */
 @keyframes slide-fade {
   0% {
     transform: translateX(0) scale(1);
-  }
-
-  70% {
-    transform: translate(-120px) scale(1.1);
   }
 
   100% {
